@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 
 module.exports = (app, db) => {
   app.post('/signup', (req, res, next) => {
-    passport.authenticate('register', (err, user, info) => {
+    passport.authenticate('register', async (err, user, info) => {
       if (err) {
         console.error(err);
         res.status(400).send({ message: "Bad Request" })
@@ -14,8 +14,21 @@ module.exports = (app, db) => {
         console.error(info.message);
         res.status(403).send({ message: info.message });
       } else {
-        console.log('User Created');
-        res.status(201).send({ message: "User Created" });
+        const user_id = user.dataValues.id
+        console.log('User Created ID:', user_id)
+        // create a default wallet
+        const walletCreated = await db.wallet.create({
+          name: "Main Wallet",
+          balance: 0.0,
+          user_id
+        })
+        if (!walletCreated) {
+          console.error("Not Found User")
+          res.status(404).send({ message: "Error: Not Found User" })
+        } else {
+          // console.log(walletCreated)
+          res.status(201).send({ message: "User Create Success" })
+        }
       }
     })(req, res, next);
   });
@@ -30,7 +43,7 @@ module.exports = (app, db) => {
         // console.error(info.message);
         res.status(403).send({ message: info.message });
       } else {
-        console.log('User Authenticated');
+        // console.log('User Authenticated');
         const token = jwt.sign({ id: user.id, role: user.role }, config.jwtOptions.secretOrKey, {
           expiresIn: 3600,
         });
