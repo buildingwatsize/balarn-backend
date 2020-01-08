@@ -17,7 +17,8 @@ module.exports = (app, db) => {
         res.status(404).send({ message: "Error: Wallet is Not Found" })
       } else {
         const transaction = await db.transaction.findAll({
-          where: { wallet_id }
+          where: { wallet_id },
+          order: [[ 'createdAt', 'DESC' ]]
         })
           if (!transaction) {
             res.status(404).send({ message: "Error: Transaction is Not Found" })
@@ -39,9 +40,18 @@ module.exports = (app, db) => {
       if (!wallet) {
         res.status(404).send({ message: "Error: Wallet is Not Found" })
       } else {
-        let wallet_updating_balance = wallet.balance + parseFloat(req.body.amount)
+        const txTypeList = [
+          { name: "deposit", type: "increment" },
+          { name: "interest", type: "increment" },
+          { name: "withdraw", type: "decrement" },
+          { name: "transfer", type: "decrement" },
+          { name: "pay", type: "decrement" },
+        ]
+        let txType = req.body.type
+        let foundType = txTypeList.find(item => item.name === txType)
+        let wallet_updating_balance = foundType.type === "increment" ? wallet.balance + parseFloat(req.body.amount) : wallet.balance - parseFloat(req.body.amount)
         const transaction = await db.transaction.create({
-          type: req.body.type,
+          type: txType,
           amount: req.body.amount,
           balance: wallet_updating_balance,
           wallet_id: req.body.wallet_id
@@ -116,6 +126,38 @@ module.exports = (app, db) => {
         } else {
           const transaction = await transactionFound.destroy()
           console.log(transaction)
+          res.status(200).send({ message: "Delete Success" })
+        }
+      }
+    }
+  )
+  
+  app.delete('/transaction/all',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res, next) => {
+      const user_id = req.user.id
+      const wallet_id = req.body.wallet_id
+      const wallet = await db.wallet.findOne({
+        where: { id: wallet_id, user_id }
+      })
+      if (!wallet) {
+        res.status(404).send({ message: "Error: Wallet is Not Found" })
+      } else {
+        const transactionFound = await db.transaction.findAll({
+          where: { wallet_id: wallet_id }
+        })
+        if (!transactionFound) {
+          res.status(404).send({ message: "Error: Not Found" })
+        } else {
+          console.log(transactionFound)
+          let listTransaction = transactionFound.map(item => item.id)
+          const deletedTransaction = await db.transaction.destroy({
+            where: {
+              id: listTransaction
+            }
+          })
+          console.log(deletedTransaction)
+          // res.status(200).send({ message: transactionFound })
           res.status(200).send({ message: "Delete Success" })
         }
       }

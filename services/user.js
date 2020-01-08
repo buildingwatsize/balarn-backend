@@ -16,6 +16,17 @@ module.exports = (app, db) => {
       } else {
         const user_id = user.dataValues.id
         console.log('User Created ID:', user_id)
+
+        // ## update user's metadata
+        // await db.user.update({
+        //   email: req.body.email,
+        //   name: req.body.name,
+        //   profile_img_url: req.body.profile_img_url
+        // }, {
+        //   where: { id: user_id }
+        // })
+        // ## update user's metadata
+
         // create a default wallet
         const walletCreated = await db.wallet.create({
           name: "Main Wallet",
@@ -44,7 +55,7 @@ module.exports = (app, db) => {
         res.status(403).send({ message: info.message });
       } else {
         // console.log('User Authenticated');
-        const token = jwt.sign({ id: user.id, role: user.role }, config.jwtOptions.secretOrKey, {
+        const token = jwt.sign({ id: user.id, role: user.role, username: user.username }, config.jwtOptions.secretOrKey, {
           expiresIn: 3600,
         });
         // console.log(token)
@@ -82,5 +93,26 @@ module.exports = (app, db) => {
       }
     })(req, res, next);
   });
+
+  app.get('/user',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res, next) => {
+      const id = req.user.id
+      const user = await db.user.findOne({
+        where: { id },
+      })
+      if (!user) {
+        res.status(404).send({ message: "Error: Not Found" })
+      } else {
+        console.log(user)
+        if (user.role === "admin") {
+          const userList = await db.user.findAll({attributes: { exclude: ['password'] }})
+          res.status(200).send(userList)
+        } else {
+          res.status(400).send({ message: "Unauthorized" })
+        }
+      }
+    }
+  )
 
 }

@@ -1,7 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const wallet = sequelize.define('wallet', {
     name: { // wallet name
-      type: DataTypes.STRING(255)
+      type: DataTypes.STRING(255),
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'Wallet name cannot be empty.'
+        }
+      }
     },
     balance: {
       type: DataTypes.DOUBLE(10, 2) // MAX 10M and got 2 decision decimal.

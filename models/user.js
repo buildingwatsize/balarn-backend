@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     // },
     // ## This is META
     role: {
-      type: DataTypes.ENUM("admin", "user")
+      type: DataTypes.ENUM("admin", "free", "premium")
     }
   })
 

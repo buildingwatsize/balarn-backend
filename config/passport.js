@@ -25,7 +25,7 @@ passport.use(
       if (!userFound) {
         let salt = bcrypt.genSaltSync(BCRYPT_SALT_ROUNDS);
         let hashedPassword = bcrypt.hashSync(password, salt);
-        let createdUser = await db.user.create({ username, password: hashedPassword })
+        let createdUser = await db.user.create({ username, password: hashedPassword, role: "free" })
         if (createdUser) {
           console.log("user created");
           return done(null, createdUser);
@@ -34,8 +34,8 @@ passport.use(
           return done(err)
         }
       } else {
-        console.log("username already taken");
-        return done(null, false, { message: 'username already taken' });
+        console.log("Username already taken");
+        return done(null, false, { message: 'Username already taken' });
       }
     }
   )

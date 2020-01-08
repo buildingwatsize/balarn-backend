@@ -257,7 +257,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6bnVsbCwiaWF0IjoxNTc3MjQ3NDUxLCJleHAiOjE1NzcyNTEwNTF9.aiQJpUi1kDPYvOhAh7CUi78RZxgJ_PPnC3UuQDT6rXQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImZyZWUiLCJ1c2VybmFtZSI6IndhdHdhdCIsImlhdCI6MTU3ODQ3MjM4OSwiZXhwIjoxNTc4NDc1OTg5fQ.a5xkPj3W83QzR5CIuDsOfnXsKXsSUwwP3AUCC61cGBQ",
 									"type": "string"
 								}
 							]
@@ -278,6 +278,41 @@
 							],
 							"path": [
 								"wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Wallet by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImZyZWUiLCJ1c2VybmFtZSI6IndhdHdhdCIsImlhdCI6MTU3ODI0MzgyOSwiZXhwIjoxNTc4MjQ3NDI5fQ.2Ythi3dmULw2UE76ycquJYT6OlOp1f1icYTbl_O7oZY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/wallet/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"wallet",
+								"2"
 							]
 						}
 					},
@@ -334,7 +369,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6bnVsbCwiaWF0IjoxNTc3MDk5ODI2LCJleHAiOjE1NzcxMDM0MjZ9.pZ5hHyGfPkNAsAv7MhKBn74NOttbwOunAUFULyI_NdI",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImZyZWUiLCJ1c2VybmFtZSI6IndhdHdhdCIsImlhdCI6MTU3ODQ3ODgyNywiZXhwIjoxNTc4NDgyNDI3fQ.iMk4J56KWrZSE3G4WKqzbD8KY224DKu7R5kyA0P2KHs",
 									"type": "string"
 								}
 							]
@@ -350,7 +385,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"1\",\n\t\"name\": \"TestWallet\",\n\t\"balance\": 200\n}",
+							"raw": "{\n\t\"id\": \"2\",\n\t\"name\": \"TestWallet\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -426,7 +461,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6bnVsbCwiaWF0IjoxNTc3MjQ3NDUxLCJleHAiOjE1NzcyNTEwNTF9.aiQJpUi1kDPYvOhAh7CUi78RZxgJ_PPnC3UuQDT6rXQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImZyZWUiLCJ1c2VybmFtZSI6IndhdHdhdCIsImlhdCI6MTU3ODQ3ODgyNywiZXhwIjoxNTc4NDgyNDI3fQ.iMk4J56KWrZSE3G4WKqzbD8KY224DKu7R5kyA0P2KHs",
 									"type": "string"
 								}
 							]
@@ -441,13 +476,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/transaction/5",
+							"raw": "{{baseUrl}}/transaction/2",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"transaction",
-								"5"
+								"2"
 							]
 						}
 					},
@@ -461,7 +496,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6bnVsbCwiaWF0IjoxNTc3MjQ3NDUxLCJleHAiOjE1NzcyNTEwNTF9.aiQJpUi1kDPYvOhAh7CUi78RZxgJ_PPnC3UuQDT6rXQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImZyZWUiLCJ1c2VybmFtZSI6IndhdHdhdCIsImlhdCI6MTU3ODI4MjE1NywiZXhwIjoxNTc4Mjg1NzU3fQ.C0oYafXzH5ZyMkKaOjqCWEZHOrmR9tVaNlle7Nhahts",
 									"type": "string"
 								}
 							]
@@ -477,7 +512,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"type\": \"deposit\",\n\t\"amount\": 1000,\n\t\"wallet_id\": \"5\"\n}",
+							"raw": "{\n\t\"type\": \"deposit\",\n\t\"amount\": 1000,\n\t\"wallet_id\": \"2\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -581,6 +616,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete All Transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZSI6ImZyZWUiLCJ1c2VybmFtZSI6IndhdHdhdCIsImlhdCI6MTU3ODUwOTgxNiwiZXhwIjoxNTc4NTEzNDE2fQ.WTSoXHZPxNcrwdp_vcqhFoII3hm0aWKOpL5MX7mALts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"wallet_id\": \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/transaction/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transaction",
+								"all"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -610,7 +689,7 @@
 	],
 	"variable": [
 		{
-			"id": "b83636aa-6e2e-4900-98a5-8825a0c38ad4",
+			"id": "ee0b3aea-37a6-4ede-a596-253a04d6481c",
 			"key": "baseUrl",
 			"value": "http://localhost:5000",
 			"type": "string"
