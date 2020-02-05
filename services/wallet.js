@@ -1,6 +1,4 @@
 const passport = require('passport');
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op;
 
 module.exports = (app, db) => {
   app.get('/wallet',

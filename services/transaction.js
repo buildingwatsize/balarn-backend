@@ -18,14 +18,15 @@ module.exports = (app, db) => {
       } else {
         const transaction = await db.transaction.findAll({
           where: { wallet_id },
-          order: [[ 'createdAt', 'DESC' ]]
+          attributes: { exclude: ['wallet_id'] },
+          order: [['createdAt', 'DESC']]
         })
-          if (!transaction) {
-            res.status(404).send({ message: "Error: Transaction is Not Found" })
-          } else {
-            console.log(transaction)
-            res.status(200).send(transaction)
-          }
+        if (!transaction) {
+          res.status(404).send({ message: "Error: Transaction is Not Found" })
+        } else {
+          console.log(transaction)
+          res.status(200).send(transaction)
+        }
       }
     }
   )
@@ -61,9 +62,9 @@ module.exports = (app, db) => {
         } else {
           let updatedWallet = wallet.update({
             balance: wallet_updating_balance
-          }, { where: { wallet_id: req.body.wallet_id }})
+          }, { where: { wallet_id: req.body.wallet_id } })
           if (!updatedWallet) {
-            res.status(500).send({ message: "Error: Cannot Update Wallet Balance"})
+            res.status(500).send({ message: "Error: Cannot Update Wallet Balance" })
           } else {
             res.status(201).send({ message: "Create Success", ...transaction.dataValues })
           }
@@ -86,7 +87,7 @@ module.exports = (app, db) => {
         res.status(404).send({ message: "Error: Wallet is Not Found" })
       } else {
         const transaction = await db.transaction.findOne({
-          where: { wallet_id, id}
+          where: { wallet_id, id }
         })
         if (!transaction) {
           res.status(404).send({ message: "Error: Not Found Transaction" })
@@ -97,7 +98,7 @@ module.exports = (app, db) => {
             balance: req.body.balance,
           })
           if (!updatedTransaction) {
-            res.status(500).send({ message: "Error: Cannot Update Wallet Balance"})
+            res.status(500).send({ message: "Error: Cannot Update Wallet Balance" })
           } else {
             res.status(200).send({ message: "Edit Success", ...updatedTransaction.dataValues })
           }
@@ -131,7 +132,7 @@ module.exports = (app, db) => {
       }
     }
   )
-  
+
   app.delete('/transaction/all',
     passport.authenticate('jwt', { session: false }),
     async (req, res, next) => {

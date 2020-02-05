@@ -1,7 +1,7 @@
 {
   "name": "balarn-backend",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.1.1",
+  "description": "A Personal Final-Project in CodeCamp 2019. This project is creating for everyone who wants the money management system like a virtual wallet so you can add a virtual-wallet representative for the pouch, the bank account, and also everyday wallet. This project will make your life easier than before so you can manage an income and an outcome like a boss XD.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",

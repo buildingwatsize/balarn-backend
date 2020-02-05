@@ -25,7 +25,12 @@ passport.use(
       if (!userFound) {
         let salt = bcrypt.genSaltSync(BCRYPT_SALT_ROUNDS);
         let hashedPassword = bcrypt.hashSync(password, salt);
-        let createdUser = await db.user.create({ username, password: hashedPassword, role: "free" })
+        let createdUser = await db.user.create({
+          username,
+          password: hashedPassword,
+          role: "free",
+          status: "active"
+        })
         if (createdUser) {
           console.log("user created");
           return done(null, createdUser);
@@ -87,7 +92,7 @@ passport.use(
       })
       if (!userFound) {
         console.error("Not Found User")
-        return done(null, false, { message: "Username not found."})
+        return done(null, false, { message: "Username not found." })
       } else {
         bcrypt.compare(password, userFound.password, (err, response) => {
           console.log("response", { response })
@@ -101,7 +106,7 @@ passport.use(
           }
           console.log('User Authenticated');
           let salt = bcrypt.genSaltSync(BCRYPT_SALT_ROUNDS);
-          return done(null, {...userFound, salt});
+          return done(null, { ...userFound, salt });
         })
       }
     }
@@ -129,7 +134,7 @@ passport.use(
           console.error('user not found in db');
           return done(null, false);
         }
-      });
+      })
     } catch (err) {
       console.error(err)
       return done(err);

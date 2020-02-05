@@ -75,7 +75,8 @@ Create a config.json `./config/config.json` with this detail, edit your password
       "dialect": "mysql",
       "operatorsAliases": 0,
       "port": 3306,
-      "app_port": 5000
+      "app_port": 5000,
+      "timezone": "Asia/Bangkok"
     },
     "test": {
       "username": "root",
@@ -85,7 +86,8 @@ Create a config.json `./config/config.json` with this detail, edit your password
       "dialect": "mysql",
       "operatorsAliases": 0,
       "port": 3306,
-      "app_port": 5000
+      "app_port": 5000,
+      "timezone": "Asia/Bangkok"
     },
     "production": {
       "username": "root",
@@ -95,7 +97,8 @@ Create a config.json `./config/config.json` with this detail, edit your password
       "dialect": "mysql",
       "operatorsAliases": 0,
       "port": 3306,
-      "app_port": 5000
+      "app_port": 5000,
+      "timezone": "Asia/Bangkok"
     }
   }
 ```
